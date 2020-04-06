@@ -19,6 +19,7 @@
 ```
 
 区别1: 32位调用系统调用用的是`int $0x80`中断,64位用的是`syscall`,如果64位用32位的`int $0x80`将会造成系统错误.
+
 区别2: 系统调用的中断号不一样.具体参考参考文献[9](https://github.com/torvalds/linux/blob/master/arch/x86/entry/syscalls/syscall_64.tbl)
 
 ## 汇编函数调用
