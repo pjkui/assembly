@@ -1,4 +1,7 @@
 # Assembly for x64 linux
+## Notice:注意!!! 
+本项目是以AT&T语法为基础的汇编语言,而不是NASM.两者语法是明显差别的.具体差别,可以参考本文后面的参考文献[1][8].
+
 ## 参数调用
 64位汇编
 当参数少于7个时， 参数从左到右放入寄存器: rdi, rsi, rdx, rcx, r8, r9。
@@ -206,6 +209,7 @@ Command name abbreviations are allowed if unambiguous.
 
 1. nasm和AT&T汇编的区别:
     https://www.tldp.org/HOWTO/Assembly-HOWTO/index.html
+
 2. nasm的教程 https://0xax.github.io/asm_1/
 
 3. nasm的教程 https://www.nasm.us/doc/nasmdo11.html#section-11.3
