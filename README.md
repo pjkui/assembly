@@ -1,8 +1,27 @@
 # Assembly for x64 linux
 ## Notice:注意!!! 
 本项目是以AT&T语法为基础的汇编语言,而不是NASM.两者语法是明显差别的.具体差别,可以参考本文后面的参考文献[1][8].
+## 32位汇编和64位汇编的差别
 
-## 参数调用
+刚开始踩了一个坑,以为32位汇编和x64的汇编调用是一样的,后来发现不是的.明显的差别是在系统调用上.
+32位机器上的退出程序如下:
+```as
+        movl $0,%ebx     # 参数一：退出代码
+        movl $1,%eax     # 系统调用号(sys_exit) 
+        int  $0x80       # 调用内核功能
+```
+64位机器上退出程序写法如下:
+```as
+        # exit(0)
+        mov     $60, %rax               # system call 60 is exit
+        xor     %rdi, %rdi              # we want return code 0
+        syscall                         # invoke operating system to exit
+```
+
+区别1: 32位调用系统调用用的是`int $0x80`中断,64位用的是`syscall`,如果64位用32位的`int $0x80`将会造成系统错误.
+区别2: 系统调用的中断号不一样.具体参考参考文献[9](https://github.com/torvalds/linux/blob/master/arch/x86/entry/syscalls/syscall_64.tbl)
+
+## 汇编函数调用
 64位汇编
 当参数少于7个时， 参数从左到右放入寄存器: rdi, rsi, rdx, rcx, r8, r9。
 当参数为7个以上时， 前 6 个与前面一样， 但后面的依次从 “右向左” 放入栈中，即和32位汇编一样。
